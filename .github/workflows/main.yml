@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+# This step and next step are only needed because tests are run below. Otherwise, HF can automatically detect requirements.txt and pip install it. Also, HF automatically detects file with name "app.py" and considers that as main file to launch the App, if not specified otherwise.
+
+      - name: Set up Python  
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Run tests
+        run: make install
+
+      - name: Add remote
+        env:
+          HF: ${{ secrets.HF }}
+        run: git remote add space https://EuphyTheLuffy:$HF@huggingface.co/spaces/EuphyTheLuffy/SentimentAnalysis
+
+      - name: Push to hub
+        env:
+          HF: ${{ secrets.HF }}
+        run: git push -force https://EuphyTheLuffy:$HF@huggingface.co/spaces/EuphyTheLuffy/SentimentAnalysis main
