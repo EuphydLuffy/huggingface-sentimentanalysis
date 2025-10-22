@@ -28,9 +28,7 @@ jobs:
         run: make install
 
       - name: Add remote
-        env:
-          HF: ${{ secrets.HF }}
-        run: git remote add space https://EuphyTheLuffy:$HF@huggingface.co/spaces/EuphyTheLuffy/SentimentAnalysis
+        run: git remote add space https://EuphyTheLuffy:${{ secrets.HF }}@huggingface.co/spaces/EuphyTheLuffy/SentimentAnalysis
 
       - name: Push to hub
         run: git push --force space main
