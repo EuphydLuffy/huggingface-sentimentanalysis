@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
 # This step and next step are only needed because tests are run below. Otherwise, HF can automatically detect requirements.txt and pip install it. Also, HF automatically detects file with name "app.py" and considers that as main file to launch the App, if not specified otherwise.
 
