@@ -13,4 +13,4 @@ launch:
 	python app.py
 
 		
-all: install test debug launch
+all: install test launch
