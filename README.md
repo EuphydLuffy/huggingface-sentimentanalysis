@@ -1,4 +1,13 @@
-# Python project for deploying a Gradio application with Docker to Hugging Face Spaces
+---
+title: Deployment of a Gradio application with Docker to Hugging Face Spaces
+emoji: "🤖"
+colorFrom: "blue"
+colorTo: "green"
+sdk: "docker"
+sdk_version: "1.0"
+app_file: "Dockerfile"
+pinned: "false"
+---
 
 ## Dependency Management
 
