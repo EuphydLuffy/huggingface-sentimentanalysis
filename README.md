@@ -6,7 +6,7 @@ colorTo: "green"
 sdk: "docker"
 sdk_version: "1.0"
 app_file: "Dockerfile"
-pinned: "false"
+pinned: false
 ---
 
 ## Dependency Management
