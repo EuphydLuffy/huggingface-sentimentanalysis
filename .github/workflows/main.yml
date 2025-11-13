@@ -31,7 +31,7 @@ jobs:
           pip install git-lfs
           # Replace USER/REPO with your Hugging Face Space repo
           git clone https://huggingface.co/spaces/EuphyTheLuffy/SentimentAnalysisGradioApp hf_space
-          cp -r * hf_space/
+          rsync -av --exclude '.git' --exclude 'hf_space' . hf_space/
           cd hf_space
           git add .
           git commit -m "Deploy updated Docker container"
