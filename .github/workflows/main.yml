@@ -1,9 +1,7 @@
 name: Build and Deploy to Hugging Face Spaces
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -16,31 +14,18 @@ jobs:
         with:
           fetch-depth: 0
       
-      #2. Set up Python for the testing
-      - name: Set up Python  
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.12
-      
-      #3. Install dependencies
-      - name: Install dependencies
-        run: make install
-      
-      #4. Run tests
-      - name: Run tests
-        run: make install
 
-      #5. Log in to Hugging Face
+      #2. Log in to Hugging Face
       - name: Log in to Hugging Face
         run: |
           pip install huggingface_hub
           huggingface-cli login --token ${{secrets.HF}}
 
-      #6. Build Docker image
+      #3. Build Docker image
       - name: Build Docker image
         run: docker build -t sentiment-app .
 
-      #7. Push Docker image to Hugging Face Spaces
+      #4. Push Docker image to Hugging Face Spaces
       - name: Push to Hugging Face Spaces
         run: |
           pip install git-lfs
