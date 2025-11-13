@@ -1,36 +1,53 @@
-name: CI
+name: Build and Deploy to Hugging Face Spaces
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
+      #1. Checkout the repo
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
-# This step and next step are only needed because tests are run below. Otherwise, HF can automatically detect requirements.txt and pip install it. Also, HF automatically detects file with name "app.py" and considers that as main file to launch the App, if not specified otherwise.
-
+      
+      #2. Set up Python for the testing
       - name: Set up Python  
         uses: actions/setup-python@v4
         with:
           python-version: 3.12
-
+      
+      #3. Install dependencies
       - name: Install dependencies
         run: make install
-
+      
+      #4. Run tests
       - name: Run tests
         run: make install
 
-      - name: Add remote
-        run: git remote add space https://EuphyTheLuffy:${{ secrets.HF }}@huggingface.co/spaces/EuphyTheLuffy/SentimentAnalysis
+      #5. Log in to Hugging Face
+      - name: Log in to Hugging Face
+        run: |
+          pip install huggingface_hub
+          huggingface-cli login --token ${{secrets.HF}}
 
-      - name: Push to hub
-        run: git push --force space main
+      #6. Build Docker image
+      - name: Build Docker image
+        run: docker build -t sentiment-app .
+
+      #7. Push Docker image to Hugging Face Spaces
+      - name: Push to Hugging Face Spaces
+        run: |
+          pip install git-lfs
+          # Replace USER/REPO with your Hugging Face Space repo
+          git clone https://huggingface.co/spaces/EuphyTheLuffy/SentimentAnalysisGradioApp hf_space
+          cp -r * hf_space/
+          cd hf_space
+          git add .
+          git commit -m "Deploy updated Docker container"
+          git push

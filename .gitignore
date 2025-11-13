@@ -71,7 +71,7 @@ instance/
 # Sphinx documentation
 docs/_build/
 
-# PyBuilder
+# PyBuildergit commit -m "Save current work before cleanup"
 .pybuilder/
 target/
 
