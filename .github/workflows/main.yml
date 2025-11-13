@@ -19,7 +19,7 @@ jobs:
       - name: Log in to Hugging Face
         run: |
           pip install huggingface_hub
-          python -m huggingface_hub login "${{ secrets.HF }}"
+          hf auth login --token "${{ secrets.HF }}"
 
       #3. Build Docker image
       - name: Build Docker image
