@@ -8,10 +8,14 @@ sdk_version: "1.0"
 app_file: "Dockerfile"
 pinned: false
 ---
+## Try the App
+
+Check out the live Gradio app on Hugging Face Spaces:  
+[![Open on Hugging Face](https://img.shields.io/badge/Open%20on-Hugging%20Face-blue)](https://huggingface.co/spaces/EuphyTheLuffy/SentimentAnalysisGradioApp)
 
 ## Project Overview
 
-This project demonstrates how to deploy a Gradio application in a fully automated CI/CD workflow using Docker and Hugging Face Spaces. The repository contains a DistilBERT model fine-tuned for sentiment analysis and an interactive Gradio interface that users can access directly from the web.
+This project demonstrates how to deploy a Gradio application in a fully automated CI/CD workflow using Docker and Hugging Face Spaces. This APP leverages a DistilBERT model fine-tuned for sentiment analysis and builds an interactive Gradio interface that users can access directly from the web.
 
 Key highlights:
 
